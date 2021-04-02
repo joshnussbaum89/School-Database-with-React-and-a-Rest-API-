@@ -19,10 +19,12 @@ class App extends Component {
 
   render() {
     let { courses } = this.state;
-    console.log(courses);
+    let titles = courses.map((course) => <li>{course.title}</li>);
+
     return (
       <div className="App">
         <h1>Hello</h1>
+        <ul>{titles}</ul>
       </div>
     );
   }
