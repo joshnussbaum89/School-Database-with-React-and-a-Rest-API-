@@ -18,12 +18,11 @@ class App extends Component {
   };
 
   render() {
-    const { courses } = this.state;
-    // Object.keys(courses)
-    console.log(courses[0]);
+    let { courses } = this.state;
+    console.log(courses);
     return (
       <div className="App">
-        <h1>hey</h1>
+        <h1>Hello</h1>
       </div>
     );
   }
