@@ -1,4 +1,16 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+// Components
+import Header from "./components/Header";
+import Courses from "./components/Courses";
+import CourseDetail from "./components/CourseDetail";
+import CreateCourse from "./components/CreateCourse";
+import UpdateCourse from "./components/UpdateCourse";
+import UserSignIn from "./components/UserSignIn";
+import UserSignUp from "./components/UserSignUp";
+import UserSignOut from "./components/UserSignOut";
+import NotFound from "./components/NotFound";
 
 class App extends Component {
   state = {
@@ -18,14 +30,28 @@ class App extends Component {
   };
 
   render() {
-    let { courses } = this.state;
-    let titles = courses.map((course) => <li>{course.title}</li>);
+    // let { courses } = this.state;
+    // let titles = courses.map((course) => <li>{course.title}</li>);
 
     return (
-      <div className="App">
-        <h1>Hello</h1>
-        <ul>{titles}</ul>
-      </div>
+      <Router>
+        <div>
+          <Header />
+          <main>
+            <Switch>
+              <Route exact path="/" component={Courses} />
+              <Route path="/courses/create" component={CreateCourse} />
+              <Route path="/courses/:id/update" component={UpdateCourse} />
+              <Route path="/courses/:id" component={CourseDetail} />
+              <Route path="/signin" component={UserSignIn} />
+              <Route path="/signup" component={UserSignUp} />
+              {/* UserSignOut signs out authenticated user and redirects to '/' */}
+              <Route path="/signout" component={UserSignOut} />
+              <Route component={NotFound} />
+            </Switch>
+          </main>
+        </div>
+      </Router>
     );
   }
 }
