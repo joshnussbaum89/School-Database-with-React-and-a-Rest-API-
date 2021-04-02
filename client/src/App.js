@@ -12,6 +12,18 @@ import UserSignUp from "./components/UserSignUp";
 import UserSignOut from "./components/UserSignOut";
 import NotFound from "./components/NotFound";
 
+// Context
+import withContext from "./Context";
+// import PrivateRoute from "./PrivateRoute";
+
+// Connects Components to context
+const CreateCourseWithContext = withContext(CreateCourse);
+const UpdateCourseWithContext = withContext(UpdateCourse);
+const CourseDetailWithContext = withContext(CourseDetail);
+const UserSignInWithContext = withContext(UserSignIn);
+const UserSignUpWithContext = withContext(UserSignUp);
+const UserSignOutWithContext = withContext(UserSignOut);
+
 class App extends Component {
   state = {
     courses: [],
@@ -40,13 +52,19 @@ class App extends Component {
           <main>
             <Switch>
               <Route exact path="/" component={Courses} />
-              <Route path="/courses/create" component={CreateCourse} />
-              <Route path="/courses/:id/update" component={UpdateCourse} />
-              <Route path="/courses/:id" component={CourseDetail} />
-              <Route path="/signin" component={UserSignIn} />
-              <Route path="/signup" component={UserSignUp} />
+              <Route
+                path="/courses/create"
+                component={CreateCourseWithContext}
+              />
+              <Route
+                path="/courses/:id/update"
+                component={UpdateCourseWithContext}
+              />
+              <Route path="/courses/:id" component={CourseDetailWithContext} />
+              <Route path="/signin" component={UserSignInWithContext} />
+              <Route path="/signup" component={UserSignUpWithContext} />
               {/* UserSignOut signs out authenticated user and redirects to '/' */}
-              <Route path="/signout" component={UserSignOut} />
+              <Route path="/signout" component={UserSignOutWithContext} />
               <Route component={NotFound} />
             </Switch>
           </main>
