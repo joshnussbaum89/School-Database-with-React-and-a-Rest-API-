@@ -17,8 +17,7 @@ export class Provider extends Component {
   }
 
   render() {
-    const { authenticatedUser } = this.state;
-    const { authenticatedPassword } = this.state;
+    const { authenticatedUser, authenticatedPassword } = this.state;
     // data to be used in Context.Provider's value prop
     const value = {
       authenticatedUser,
