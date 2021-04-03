@@ -64,6 +64,10 @@ export default class Data {
     }
   }
 
+  // async signIn(emailAddress, password) {
+  //   const request = await this.api("/users", "POST", true);
+  // }
+
   async deleteCourse(id) {
     const response = await this.api(`/courses/${id}`, "DELETE", null);
     if (response.status === 204) {

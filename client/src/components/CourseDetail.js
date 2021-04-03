@@ -37,7 +37,6 @@ const CourseDetail = ({ match, history, context }) => {
           </Link>
           <Link
             to="/"
-            // Not sure if deleteCourse is wired up correctly
             onClick={() => context.data.deleteCourse(id)}
             className="button"
           >
