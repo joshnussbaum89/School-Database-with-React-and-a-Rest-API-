@@ -28,7 +28,6 @@ const CourseDetail = ({ match, history, context }) => {
       });
   }, []);
   // :ids go 1, 2, 3, 27, 34 ... 42
-  console.log("hey");
   return (
     <>
       <div className="actions--bar">
