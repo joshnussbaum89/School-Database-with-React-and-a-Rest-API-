@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import CourseDetail from "./CourseDetail";
+import { Link } from "react-router-dom";
 
 const Courses = ({ context }) => {
   const [courses, updateCourses] = useState([]);
-  
+
   // 1. Get courses
   useEffect(() => {
     context.data
@@ -14,28 +14,24 @@ const Courses = ({ context }) => {
 
   // 2. Map over them to display
   const courseInfo = courses.map((course, index) => (
-    <a
+    <Link
+      // :id needs to be course id
+      to={`courses/${course.id}`}
       key={index}
       className="course--module course--link"
-      href="course-detail.html"
     >
       <h2 className="course--label">Course</h2>
       <h3 className="course--title">{course.title}</h3>
-    </a>
+    </Link>
   ));
-
-  // <a className="course--module course--link" href="course-detail.html">
-  //   <h2 className="course--label">Course</h2>
-  //   <h3 className="course--title">Build a Basic Bookshelf</h3>
-  // </a>;
 
   return (
     <>
       <div className="wrap main--grid">
         {courseInfo}
-        <a
+        <Link
+          to="/courses/create"
           className="course--module course--add--module"
-          href="create-course.html"
         >
           <span className="course--add--title">
             <svg
@@ -50,7 +46,7 @@ const Courses = ({ context }) => {
             </svg>
             New Course
           </span>
-        </a>
+        </Link>
       </div>
     </>
   );

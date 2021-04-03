@@ -63,6 +63,17 @@ export default class Data {
       throw new Error();
     }
   }
+
+  async deleteCourse(id) {
+    const response = await this.api(`/courses/${id}`, "DELETE", null);
+    if (response.status === 204) {
+      return response.json().then((data) => data);
+    } else if (response.status === 401) {
+      return null;
+    } else {
+      throw new Error();
+    }
+  }
 }
 
 // Add async methods for creating/edited courses etc.
