@@ -27,7 +27,6 @@ export class Provider extends Component {
       actions: {
         signIn: this.signIn,
         signout: this.signOut,
-        createUser: this.createUser,
       },
     };
 
@@ -37,19 +36,20 @@ export class Provider extends Component {
   }
 
   // Sign in user from UserSignIn.js
-  signIn = async (username, password) => {
-    const user = await this.data.getUser(username, password);
+  signIn = async (emailAddress, password) => {
+    const user = await this.data.getUser(emailAddress, password);
     if (user !== null) {
       this.setState(() => {
         return {
           authenticatedUser: user,
+          authenticatedPassword: password,
         };
       });
       // Set cookie
-      // Cookies.set("authenticatedUser", JSON.stringify(user), { expires: 1 });
-      // Cookies.set("authenticatedPassword", JSON.stringify(password), {
-      //   expires: 1,
-      // });
+      Cookies.set("authenticatedUser", JSON.stringify(user), { expires: 1 });
+      Cookies.set("authenticatedPassword", JSON.stringify(password), {
+        expires: 1,
+      });
     }
     return user;
   };
@@ -59,6 +59,7 @@ export class Provider extends Component {
     this.setState(() => {
       return {
         authenticatedUser: null,
+        authenticatedPassword: null,
       };
     });
     Cookies.remove("authenticatedUser");
