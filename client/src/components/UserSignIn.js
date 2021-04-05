@@ -1,27 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-// 1. Get sign in and sign out functions working
-const UserSignIn = () => {
+const UserSignIn = ({ history, context }) => {
+  const [username, updateUsername] = useState("");
+  const [password, updatePassword] = useState("");
+  const [errors, updateErrors] = useState([]);
+
+  const changeUsername = (event) => {
+    updateUsername(event.target.value);
+  };
+
+  const changePassword = (event) => {
+    updatePassword(event.target.value);
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+
+    context.actions.signIn(username, password).then((user) => {
+      if (user == null) {
+        updateErrors(["Sign-in was unsuccessful"]);
+        console.log(errors);
+      } else {
+        updateErrors("");
+        console.log(`SUCCESS! ${username} is now signed in!`);
+        history.push("/");
+      }
+    });
+  };
+
   return (
     <>
       <div className="form--centered">
         <h2>Sign In</h2>
 
-        <form>
+        {errors ? (
+          <div>
+            <ul>
+              {errors.map((error, i) => (
+                <li key={i}>{error}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+
+        <form onSubmit={submit}>
           <label htmlFor="emailAddress">Email Address</label>
-          <input id="emailAddress" name="emailAddress" type="email" value="" />
+          <input
+            id="emailAddress"
+            name="emailAddress"
+            type="email"
+            onChange={changeUsername}
+            value={username}
+          />
           <label htmlFor="password">Password</label>
-          <input id="password" name="password" type="password" value="" />
-          {/* Link Sign In button to signIn() in Context.js */}
+          <input
+            id="password"
+            name="password"
+            type="password"
+            onChange={changePassword}
+            value={password}
+          />
           <button className="button" type="submit">
             Sign In
           </button>
-          <Link
-            to="/"
-            className="button button-secondary"
-            // onClick="event.preventDefault(); location.href='index.html';"
-          >
+          <Link to="/" className="button button-secondary">
             Cancel
           </Link>
         </form>

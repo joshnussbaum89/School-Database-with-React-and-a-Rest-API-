@@ -26,7 +26,7 @@ const CourseDetail = ({ match, history, context }) => {
           updateMaterials(data.materialsNeeded);
         }
       });
-  }, []);
+  }, [context.data, courseId]);
   // :ids go 1, 2, 3, 27, 34 ... 42
   return (
     <>

@@ -10,7 +10,7 @@ const Courses = ({ context }) => {
       .api("/courses")
       .then((res) => res.json())
       .then((data) => updateCourses(data));
-  }, []);
+  }, [context.data]);
 
   // 2. Map over them to display
   const courseInfo = courses.map((course, index) => (
