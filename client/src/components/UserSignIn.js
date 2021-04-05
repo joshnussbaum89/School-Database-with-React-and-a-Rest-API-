@@ -6,12 +6,14 @@ const UserSignIn = ({ history, context }) => {
   const [password, updatePassword] = useState("");
   const [errors, updateErrors] = useState([]);
 
-  const changeUsername = (event) => {
-    updateUsername(event.target.value);
-  };
-
-  const changePassword = (event) => {
-    updatePassword(event.target.value);
+  const change = (event) => {
+    if (event.target.type === "email") {
+      updateUsername(event.target.value);
+      console.log(username);
+    } else {
+      updatePassword(event.target.value);
+      console.log(password);
+    }
   };
 
   const submit = (e) => {
@@ -22,7 +24,7 @@ const UserSignIn = ({ history, context }) => {
         updateErrors(["Sign-in was unsuccessful"]);
         console.log(errors);
       } else {
-        updateErrors("");
+        updateErrors([]);
         console.log(`SUCCESS! ${username} is now signed in!`);
         history.push("/");
       }
@@ -50,7 +52,7 @@ const UserSignIn = ({ history, context }) => {
             id="emailAddress"
             name="emailAddress"
             type="email"
-            onChange={changeUsername}
+            onChange={change}
             value={username}
           />
           <label htmlFor="password">Password</label>
@@ -58,7 +60,7 @@ const UserSignIn = ({ history, context }) => {
             id="password"
             name="password"
             type="password"
-            onChange={changePassword}
+            onChange={change}
             value={password}
           />
           <button className="button" type="submit">
