@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const UserSignIn = ({ history, context }) => {
-  const [username, updateUsername] = useState("");
-  const [password, updatePassword] = useState("");
+  const [username, updateUsername] = useState();
+  const [password, updatePassword] = useState();
   const [errors, updateErrors] = useState([]);
 
   const change = (event) => {

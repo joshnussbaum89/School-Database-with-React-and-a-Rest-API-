@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 const UserSignUp = ({ history, context }) => {
   // Using "" as initial value doesn't render the correct errors
-  const [firstName, updateFirstName] = useState("");
-  const [lastName, updateLastName] = useState("");
-  const [emailAddress, updateEmailAddress] = useState("");
-  const [password, updatePassword] = useState("");
-  const [confirmedPassword, updateConfirmedPassword] = useState("");
+  const [firstName, updateFirstName] = useState();
+  const [lastName, updateLastName] = useState();
+  const [emailAddress, updateEmailAddress] = useState();
+  const [password, updatePassword] = useState();
+  const [confirmedPassword, updateConfirmedPassword] = useState();
   const [errors, updateErrors] = useState([]);
 
   const change = (event) => {
