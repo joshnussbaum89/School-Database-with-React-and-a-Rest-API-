@@ -65,6 +65,7 @@ export class UserSignIn extends Component {
   submit = () => {
     const { context } = this.props;
     const { from } = this.props.location.state || {
+      // when there is an authenticated route, this should be "/authenticated"
       from: { pathname: "/" },
     };
     const { emailAddress, password } = this.state;

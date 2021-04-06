@@ -12,7 +12,7 @@ const { User } = require("../models");
 exports.authenticateUser = async (req, res, next) => {
   let message;
   const credentials = auth(req);
-
+  console.log(credentials);
   if (credentials) {
     // Find user with matching email address
 
@@ -21,6 +21,7 @@ exports.authenticateUser = async (req, res, next) => {
         emailAddress: credentials.name,
       },
     });
+    
     if (user) {
       const authenticated = bcrypt.compareSync(credentials.pass, user.password);
       if (authenticated) {
