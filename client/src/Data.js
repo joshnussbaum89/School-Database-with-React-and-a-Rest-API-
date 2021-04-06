@@ -26,10 +26,11 @@ export default class Data {
     // if auth is required (boolean)
     // send authorization header to server with authenticated information
     // uses base-64 encoding
+
     if (requiresAuth) {
-      const encodedCredentials = btoa(
-        `${credentials.username}:${credentials.password}`
-      );
+      // credentials.username for signIn and credentials.emailAddress for new course
+      const username = credentials.username || credentials.emailAddress;
+      const encodedCredentials = btoa(`${username}:${credentials.password}`);
 
       options.headers["Authorization"] = `Basic ${encodedCredentials}`;
     }

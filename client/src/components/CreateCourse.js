@@ -99,25 +99,23 @@ class CreateCourse extends Component {
   };
 
   submit = () => {
+    // Context variables
     const { context } = this.props;
-    const { id, emailAddress } = context.authenticatedUser.user;
+    const userId = context.authenticatedUser.user.id;
+    const { emailAddress } = context.authenticatedUser.user;
     const { authenticatedPassword } = context;
-    console.log(emailAddress);
 
-    const {
-      courseTitle,
-      courseAuthor,
-      courseDescription,
-      materialsNeeded,
-      estimatedTime,
-    } = this.state;
+    // Local State variables
+    const { courseAuthor, materialsNeeded, estimatedTime } = this.state;
+    const title = this.state.courseTitle;
+    const description = this.state.courseDescription;
 
     // New course payload
     const course = {
-      id,
-      courseTitle,
+      userId,
+      title,
       courseAuthor,
-      courseDescription,
+      description,
       materialsNeeded,
       estimatedTime,
     };
@@ -128,17 +126,15 @@ class CreateCourse extends Component {
         if (errors.length) {
           this.setState({ errors });
         } else {
+          console.log(`New class: "${course.title}" was successfully created!`);
           this.props.history.push("/");
-          console.log(
-            `${emailAddress} is successfully signed up and authenticated!`
-          );
         }
       })
       // handle rejected promises
       .catch((err) => {
         console.error(err);
         // push to history stack
-        // this.props.history.push("/error");
+        this.props.history.push("/error");
       });
   };
 
