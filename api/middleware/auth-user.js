@@ -15,6 +15,7 @@ exports.authenticateUser = async (req, res, next) => {
 
   if (credentials) {
     // Find user with matching email address
+
     const user = await User.findOne({
       where: {
         emailAddress: credentials.name,
