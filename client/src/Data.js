@@ -26,7 +26,6 @@ export default class Data {
     // if auth is required (boolean)
     // send authorization header to server with authenticated information
     // uses base-64 encoding
-
     if (requiresAuth) {
       // credentials.username for signIn and credentials.emailAddress for new course
       const username = credentials.username || credentials.emailAddress;
@@ -81,16 +80,37 @@ export default class Data {
     }
   }
 
-  async deleteCourse(id) {
-    const response = await this.api(`/courses/${id}`, "DELETE", null);
+  async updateCourse(id, course, emailAddress, password) {
+    const response = await this.api(`/courses/${id}`, "PUT", course, true, {
+      emailAddress,
+      password,
+    });
     if (response.status === 204) {
-      return response.json().then((data) => data);
-    } else if (response.status === 401) {
-      return null;
+      return [];
+    } else if (response.status === 403) {
+      return response.json().then((data) => {
+        return data.errors;
+      });
+    } else {
+      throw new Error();
+    }
+  }
+
+  async deleteCourse(id, emailAddress, password) {
+    const response = await this.api(`/courses/${id}`, "DELETE", null, true, {
+      emailAddress,
+      password,
+    });
+
+    console.log(response);
+    if (response.status === 204) {
+      return [];
+    } else if (response.status === 403) {
+      return response.json().then((data) => {
+        return data.errors;
+      });
     } else {
       throw new Error();
     }
   }
 }
-
-// Add async methods for creating/edited courses etc.

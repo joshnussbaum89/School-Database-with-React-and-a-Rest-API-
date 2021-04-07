@@ -14,7 +14,7 @@ import NotFound from "./components/NotFound";
 
 // Context
 import withContext from "./Context";
-// import PrivateRoute from "./PrivateRoute";
+import PrivateRoute from "./PrivateRoute";
 
 // Connects Components to context
 const HeaderWithContext = withContext(Header);
@@ -34,8 +34,11 @@ class App extends Component {
         <main>
           <Switch>
             <Route exact path="/" component={CoursesWithContext} />
-            <Route path="/courses/create" component={CreateCourseWithContext} />
-            <Route
+            <PrivateRoute
+              path="/courses/create"
+              component={CreateCourseWithContext}
+            />
+            <PrivateRoute
               path="/courses/:id/update"
               component={UpdateCourseWithContext}
             />

@@ -31,7 +31,7 @@ class CreateCourse extends Component {
             submit={this.submit}
             submitButtonText="Create Course"
             elements={() => (
-              <React.Fragment>
+              <>
                 <div className="main--flex">
                   <div>
                     <label htmlFor="courseTitle">Course Title</label>
@@ -79,7 +79,7 @@ class CreateCourse extends Component {
                     ></textarea>
                   </div>
                 </div>
-              </React.Fragment>
+              </>
             )}
           />
         </div>
