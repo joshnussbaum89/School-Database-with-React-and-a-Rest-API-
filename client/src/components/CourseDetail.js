@@ -10,6 +10,7 @@ class CourseDetail extends Component {
     time: "",
     materials: "",
     emailAddress: "",
+    errors: [],
   };
 
   componentDidMount() {
@@ -34,7 +35,7 @@ class CourseDetail extends Component {
 
   render() {
     const { history } = this.props;
-    const { course, firstName, lastName, time, materials } = this.state;
+    const { course, firstName, lastName, time, materials, errors } = this.state;
     const courseId = history.location.pathname;
     const { authenticatedUser } = this.props.context;
 
@@ -42,11 +43,14 @@ class CourseDetail extends Component {
       <>
         <div className="actions--bar">
           <div className="wrap">
-            {authenticatedUser ? (
+            {authenticatedUser &&
+            authenticatedUser.user.id === course.userId ? (
               <>
                 <Link to={`${courseId}/update`} className="button">
                   Update Course
                 </Link>
+                {/* TODO */}
+                {/* This goes back to homepage, but the course is still listed */}
                 <Link to="/" onClick={this.handleDelete} className="button">
                   Delete Course
                 </Link>
@@ -64,7 +68,7 @@ class CourseDetail extends Component {
 
         <div className="wrap">
           <h2>Course Detail</h2>
-          <form>
+          <form onSubmit={this.handleDelete}>
             <div className="main--flex">
               <div>
                 <h3 className="course--detail--title">Course</h3>
@@ -93,8 +97,8 @@ class CourseDetail extends Component {
   handleDelete = () => {
     // delete course function
     const { context, history } = this.props;
-    const { deleteCourse } = context.data;
     const { id } = this.props.match.params;
+    const { course } = this.state;
 
     // authenticated user
     if (context.authenticatedUser) {
@@ -102,8 +106,24 @@ class CourseDetail extends Component {
       // authenticated password
       const { authenticatedPassword } = context;
       // delete
-      deleteCourse(id, emailAddress, authenticatedPassword);
-      history.push("/");
+      context.data
+        .deleteCourse(id, emailAddress, authenticatedPassword)
+        .then((errors) => {
+          if (errors.length > 0) {
+            this.setState({ errors });
+          } else {
+            console.log(
+              `Your class: "${course.title}" was successfully deleted!`
+            );
+            history.push("/");
+          }
+        })
+        // handle rejected promises
+        .catch((err) => {
+          console.error(err);
+          // push to history stack
+          history.push("/error");
+        });
     }
   };
 }

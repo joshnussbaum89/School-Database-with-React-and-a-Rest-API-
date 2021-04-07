@@ -116,7 +116,7 @@ class UpdateCourse extends Component {
 
   submit = () => {
     // Context variables
-    const { context } = this.props;
+    const { context, history } = this.props;
     const userId = context.authenticatedUser.user.id;
     const { emailAddress } = context.authenticatedUser.user;
     const { authenticatedPassword } = context;
@@ -139,10 +139,13 @@ class UpdateCourse extends Component {
       estimatedTime,
     };
 
+    // TODO
+    // This needs to redirect to homepage after course is updated
+    // OR you can display a message indicating course was updated
     context.data
       .updateCourse(id, course, emailAddress, authenticatedPassword)
       .then((errors) => {
-        if (errors.length) {
+        if (errors) {
           this.setState({ errors });
         } else {
           console.log(
@@ -155,8 +158,9 @@ class UpdateCourse extends Component {
       .catch((err) => {
         console.error(err);
         // push to history stack
-        this.props.history.push("/error");
+        history.push("/error");
       });
+    // this.props.history.push("/");
   };
 
   cancel = () => {

@@ -68,6 +68,7 @@ export class UserSignIn extends Component {
       // when there is an authenticated route, this should be "/authenticated"
       from: { pathname: "/" },
     };
+
     const { emailAddress, password } = this.state;
     // check if the returned PromiseValue is null (or a response of 400)
     context.actions
