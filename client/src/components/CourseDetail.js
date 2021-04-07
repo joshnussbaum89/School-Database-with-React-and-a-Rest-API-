@@ -98,11 +98,11 @@ class CourseDetail extends Component {
 
     // authenticated user
     if (context.authenticatedUser) {
-      const { authenticatedEmail } = context.authenticatedUser.user;
+      const { emailAddress } = context.authenticatedUser.user;
       // authenticated password
       const { authenticatedPassword } = context;
       // delete
-      deleteCourse(id, authenticatedEmail, authenticatedPassword);
+      deleteCourse(id, emailAddress, authenticatedPassword);
       history.push("/");
     }
   };
