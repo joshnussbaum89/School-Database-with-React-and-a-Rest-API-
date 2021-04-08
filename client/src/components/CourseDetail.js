@@ -49,9 +49,11 @@ class CourseDetail extends Component {
                 <Link to={`${courseId}/update`} className="button">
                   Update Course
                 </Link>
-                {/* TODO */}
-                {/* This goes back to homepage, but the course is still listed */}
-                <Link to="/" onClick={this.handleDelete} className="button">
+                <Link
+                  to={`${courseId}`}
+                  onClick={this.handleDelete}
+                  className="button"
+                >
                   Delete Course
                 </Link>
                 <Link to="/" className="button button-secondary">
@@ -95,35 +97,38 @@ class CourseDetail extends Component {
 
   // Delete a course
   handleDelete = () => {
-    // delete course function
     const { context, history } = this.props;
     const { id } = this.props.match.params;
-    const { course } = this.state;
 
     // authenticated user
     if (context.authenticatedUser) {
       const { emailAddress } = context.authenticatedUser.user;
       // authenticated password
       const { authenticatedPassword } = context;
-      // delete
-      context.data
-        .deleteCourse(id, emailAddress, authenticatedPassword)
-        .then((errors) => {
-          if (errors.length > 0) {
-            this.setState({ errors });
-          } else {
-            console.log(
-              `Your class: "${course.title}" was successfully deleted!`
-            );
-            history.push("/");
-          }
-        })
-        // handle rejected promises
-        .catch((err) => {
-          console.error(err);
-          // push to history stack
-          history.push("/error");
-        });
+
+      // Confirm and delete
+      let confirm = window.confirm(
+        "Are you sure you want to delete this course?"
+      );
+      if (confirm) {
+        context.data
+          .deleteCourse(id, emailAddress, authenticatedPassword)
+          .then((errors) => {
+            if (errors.length > 0) {
+              this.setState({ errors });
+            } else {
+              history.push("/");
+              window.location.reload();
+            }
+          })
+          // handle rejected promises
+          .catch((error) => {
+            console.error(error);
+            history.push("/error");
+          });
+      }
+    } else {
+      // redirect to Forbidden page
     }
   };
 }

@@ -100,7 +100,7 @@ class CreateCourse extends Component {
 
   submit = () => {
     // Context variables
-    const { context } = this.props;
+    const { context, history } = this.props;
     const userId = context.authenticatedUser.user.id;
     const { emailAddress } = context.authenticatedUser.user;
     const { authenticatedPassword } = context;
@@ -120,22 +120,29 @@ class CreateCourse extends Component {
       estimatedTime,
     };
 
-    context.data
-      .createCourse(course, emailAddress, authenticatedPassword)
-      .then((errors) => {
-        if (errors.length) {
-          this.setState({ errors });
-        } else {
-          console.log(`New class: "${course.title}" was successfully created!`);
-          this.props.history.push("/");
-        }
-      })
-      // handle rejected promises
-      .catch((err) => {
-        console.error(err);
-        // push to history stack
-        this.props.history.push("/error");
-      });
+    // Confirm and create
+    let confirm = window.confirm(
+      "Are you sure you want to create this course?"
+    );
+    if (confirm) {
+      context.data
+        .createCourse(course, emailAddress, authenticatedPassword)
+        .then((errors) => {
+          if (errors.length) {
+            this.setState({ errors });
+          } else {
+            console.log(
+              `New class: "${course.title}" was successfully created!`
+            );
+            history.push("/");
+          }
+        })
+        // handle rejected promises
+        .catch((error) => {
+          console.error(error);
+          history.push("/error");
+        });
+    }
   };
 
   cancel = () => {

@@ -39,7 +39,7 @@ function ErrorsDisplay({ errors }) {
       <div>
         <h2 className="validation--errors--label">Validation errors</h2>
         <div className="validation-errors">
-          <ul>
+          <ul style={{ color: "red" }}>
             {errors.map((error, i) => (
               <li key={i}>{error}</li>
             ))}

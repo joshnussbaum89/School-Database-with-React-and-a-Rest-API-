@@ -45,7 +45,6 @@ class App extends Component {
             <Route path="/courses/:id" component={CourseDetailWithContext} />
             <Route path="/signin" component={UserSignInWithContext} />
             <Route path="/signup" component={UserSignUpWithContext} />
-            {/* UserSignOut signs out authenticated user and redirects to '/' */}
             <Route path="/signout" component={UserSignOutWithContext} />
             <Route component={NotFound} />
           </Switch>

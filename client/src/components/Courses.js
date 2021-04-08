@@ -4,18 +4,16 @@ import { Link } from "react-router-dom";
 const Courses = ({ context }) => {
   const [courses, updateCourses] = useState([]);
 
-  // 1. Get courses
+  // Get courses
   useEffect(() => {
-    context.data
-      .api("/courses")
+    fetch("http://localhost:5000/api/courses")
       .then((res) => res.json())
       .then((data) => updateCourses(data));
   }, [context.data]);
 
-  // 2. Map over them to display
+  // Map over them to display
   const courseInfo = courses.map((course, index) => (
     <Link
-      // :id needs to be course id
       to={`courses/${course.id}`}
       key={index}
       className="course--module course--link"

@@ -139,28 +139,30 @@ class UpdateCourse extends Component {
       estimatedTime,
     };
 
-    // TODO
-    // This needs to redirect to homepage after course is updated
-    // OR you can display a message indicating course was updated
-    context.data
-      .updateCourse(id, course, emailAddress, authenticatedPassword)
-      .then((errors) => {
-        if (errors) {
-          this.setState({ errors });
-        } else {
-          console.log(
-            `Your course: "${course.title}" was successfully updated!`
-          );
-          this.props.history.push("/");
-        }
-      })
-      // handle rejected promises
-      .catch((err) => {
-        console.error(err);
-        // push to history stack
-        history.push("/error");
-      });
-    // this.props.history.push("/");
+    // Confirm and update
+    let confirm = window.confirm(
+      "Are you sure you want to update this course?"
+    );
+    if (confirm) {
+      context.data
+        .updateCourse(id, course, emailAddress, authenticatedPassword)
+        .then((errors) => {
+          if (errors.length) {
+            console.log(errors);
+            this.setState({ errors });
+          } else {
+            console.log(
+              `Your course: "${course.title}" was successfully updated!`
+            );
+            history.push(`/courses/${id}`);
+          }
+        })
+        // handle rejected promises
+        .catch((error) => {
+          console.log(error);
+          history.push("/error");
+        });
+    }
   };
 
   cancel = () => {
