@@ -101,13 +101,7 @@ class UserSignUp extends Component {
 
   submit = () => {
     const { context } = this.props;
-    const {
-      firstName,
-      lastName,
-      emailAddress,
-      password,
-      confirmedPassword,
-    } = this.state;
+    const { firstName, lastName, emailAddress, password } = this.state;
 
     // New user payload
     const user = {
@@ -117,6 +111,7 @@ class UserSignUp extends Component {
       password,
     };
 
+    // Sign up user
     context.data
       .createUser(user)
       .then((errors) => {
@@ -132,9 +127,8 @@ class UserSignUp extends Component {
         }
       })
       // handle rejected promises
-      .catch((err) => {
-        console.log(err);
-        // push to history stack
+      .catch((error) => {
+        console.log(error);
         this.props.history.push("/error");
       });
   };

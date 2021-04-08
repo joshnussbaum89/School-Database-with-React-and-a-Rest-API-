@@ -30,12 +30,16 @@ class CourseDetail extends Component {
             materials: data.materialsNeeded,
           });
         }
+      })
+      .catch((error) => {
+        this.props.history.push("/notfound");
+        console.log("Course not found: ", error);
       });
   }
 
   render() {
     const { history } = this.props;
-    const { course, firstName, lastName, time, materials, errors } = this.state;
+    const { course, firstName, lastName, time, materials } = this.state;
     const courseId = history.location.pathname;
     const { authenticatedUser } = this.props.context;
 
@@ -101,34 +105,30 @@ class CourseDetail extends Component {
     const { id } = this.props.match.params;
 
     // authenticated user
-    if (context.authenticatedUser) {
-      const { emailAddress } = context.authenticatedUser.user;
-      // authenticated password
-      const { authenticatedPassword } = context;
+    const { emailAddress } = context.authenticatedUser.user;
+    // authenticated password
+    const { authenticatedPassword } = context;
 
-      // Confirm and delete
-      let confirm = window.confirm(
-        "Are you sure you want to delete this course?"
-      );
-      if (confirm) {
-        context.data
-          .deleteCourse(id, emailAddress, authenticatedPassword)
-          .then((errors) => {
-            if (errors.length > 0) {
-              this.setState({ errors });
-            } else {
-              history.push("/");
-              window.location.reload();
-            }
-          })
-          // handle rejected promises
-          .catch((error) => {
-            console.error(error);
-            history.push("/error");
-          });
-      }
-    } else {
-      // redirect to Forbidden page
+    // Confirm and delete
+    let confirm = window.confirm(
+      "Are you sure you want to delete this course?"
+    );
+    if (confirm) {
+      context.data
+        .deleteCourse(id, emailAddress, authenticatedPassword)
+        .then((errors) => {
+          if (errors.length > 0) {
+            this.setState({ errors });
+          } else {
+            history.push("/");
+            window.location.reload();
+          }
+        })
+        // handle rejected promises
+        .catch((error) => {
+          console.error(error);
+          history.push("/error");
+        });
     }
   };
 }

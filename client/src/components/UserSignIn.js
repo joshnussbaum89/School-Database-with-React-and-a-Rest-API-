@@ -62,15 +62,14 @@ export class UserSignIn extends Component {
     });
   };
 
+  // Sign in user
   submit = () => {
     const { context } = this.props;
     const { from } = this.props.location.state || {
-      // when there is an authenticated route, this should be "/authenticated"
       from: { pathname: "/" },
     };
 
     const { emailAddress, password } = this.state;
-    // check if the returned PromiseValue is null (or a response of 400)
     context.actions
       .signIn(emailAddress, password)
       .then((user) => {
@@ -83,8 +82,8 @@ export class UserSignIn extends Component {
           console.log(`SUCCESS! ${emailAddress} is now signed in!`);
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
         this.props.history.push("/error");
       });
   };

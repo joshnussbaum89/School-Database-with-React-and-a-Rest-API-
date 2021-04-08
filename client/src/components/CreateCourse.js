@@ -120,7 +120,7 @@ class CreateCourse extends Component {
       estimatedTime,
     };
 
-    // Confirm and create
+    // Confirm and create course
     let confirm = window.confirm(
       "Are you sure you want to create this course?"
     );

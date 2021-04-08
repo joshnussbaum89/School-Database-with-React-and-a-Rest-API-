@@ -5,7 +5,7 @@ import { Consumer } from "./Context";
 // destructure and rename component prop in parameters
 // collect any props with ...rest
 // <Consumer> subscribes PrivateRoute to actions and data provided by Context.js
-export default ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <Consumer>
       {(context) => (
@@ -28,3 +28,5 @@ export default ({ component: Component, ...rest }) => {
     </Consumer>
   );
 };
+
+export default PrivateRoute;
