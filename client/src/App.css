@@ -1,4 +1,7 @@
 /* global.css */
+/* "Quicksand" Google font */
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+
 * {
   box-sizing: border-box;
 }
@@ -6,7 +9,7 @@ html {
   font-size: 1.25em;
 }
 body {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Quicksand", sans-serif;
 }
 h2 {
   font-size: 1.5rem;
