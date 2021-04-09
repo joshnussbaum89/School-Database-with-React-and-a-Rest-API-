@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import Form from "./Form";
 
-// In case user manually types in courses/:id/update for a course they don't own
-import Forbidden from "./Forbidden";
-
 class UpdateCourse extends Component {
   state = {
     courseTitle: "",
@@ -29,6 +26,13 @@ class UpdateCourse extends Component {
           estimatedTime: data.estimatedTime,
           materialsNeeded: data.materialsNeeded,
         });
+
+        // Make sure only authenticated user can update a course
+        const authUser = this.props.context.authenticatedUser.user.id;
+        const courseOwner = this.state.userId;
+        if (authUser !== courseOwner) {
+          this.props.history.push("/forbidden");
+        }
       })
       .catch((error) => {
         this.props.history.push("/notfound");
@@ -41,80 +45,73 @@ class UpdateCourse extends Component {
       courseTitle,
       courseAuthor,
       courseDescription,
-      userId,
       estimatedTime,
       materialsNeeded,
       errors,
     } = this.state;
-    const { authenticatedUser } = this.props.context;
 
     return (
       <>
-        {authenticatedUser.user.id === userId ? (
-          <div className="wrap">
-            <h2>Update Course</h2>
-            <Form
-              cancel={this.cancel}
-              errors={errors}
-              submit={this.submit}
-              submitButtonText="Update Course"
-              elements={() => (
-                <>
-                  <div className="main--flex">
-                    <div>
-                      <label htmlFor="courseTitle">Course Title</label>
-                      <input
-                        id="courseTitle"
-                        name="courseTitle"
-                        type="text"
-                        onChange={this.change}
-                        value={courseTitle}
-                      />
-                      <label htmlFor="courseAuthor">Course Author</label>
-                      <input
-                        id="courseAuthor"
-                        name="courseAuthor"
-                        type="text"
-                        onChange={this.change}
-                        value={courseAuthor}
-                      />
-                      <label htmlFor="courseDescription">
-                        Course Description
-                      </label>
-                      <textarea
-                        id="courseDescription"
-                        name="courseDescription"
-                        onChange={this.change}
-                        value={courseDescription}
-                      ></textarea>
-                    </div>
-                    <div>
-                      <label htmlFor="estimatedTime">Estimated Time</label>
-                      <input
-                        id="estimatedTime"
-                        name="estimatedTime"
-                        type="text"
-                        onChange={this.change}
-                        value={estimatedTime}
-                      />
-
-                      <label htmlFor="materialsNeeded">Materials Needed</label>
-                      <textarea
-                        id="materialsNeeded"
-                        name="materialsNeeded"
-                        onChange={this.change}
-                        value={materialsNeeded}
-                      ></textarea>
-                    </div>
+        <div className="wrap">
+          <h2>Update Course</h2>
+          <Form
+            cancel={this.cancel}
+            errors={errors}
+            submit={this.submit}
+            submitButtonText="Update Course"
+            elements={() => (
+              <>
+                <div className="main--flex">
+                  <div>
+                    <label htmlFor="courseTitle">Course Title</label>
+                    <input
+                      id="courseTitle"
+                      name="courseTitle"
+                      type="text"
+                      onChange={this.change}
+                      value={courseTitle}
+                    />
+                    <label htmlFor="courseAuthor">Course Author</label>
+                    <input
+                      id="courseAuthor"
+                      name="courseAuthor"
+                      type="text"
+                      onChange={this.change}
+                      value={courseAuthor}
+                    />
+                    <label htmlFor="courseDescription">
+                      Course Description
+                    </label>
+                    <textarea
+                      id="courseDescription"
+                      name="courseDescription"
+                      onChange={this.change}
+                      value={courseDescription}
+                    ></textarea>
                   </div>
-                </>
-              )}
-            />
-          </div>
-        ) : (
-          // If currently signed in user is not the course owner
-          <Forbidden />
-        )}
+                  <div>
+                    <label htmlFor="estimatedTime">Estimated Time</label>
+                    <input
+                      id="estimatedTime"
+                      name="estimatedTime"
+                      type="text"
+                      onChange={this.change}
+                      value={estimatedTime}
+                    />
+
+                    <label htmlFor="materialsNeeded">Materials Needed</label>
+                    <textarea
+                      id="materialsNeeded"
+                      name="materialsNeeded"
+                      onChange={this.change}
+                      value={materialsNeeded}
+                    ></textarea>
+                  </div>
+                </div>
+              </>
+            )}
+          />
+        </div>
       </>
     );
   }
@@ -155,11 +152,7 @@ class UpdateCourse extends Component {
       estimatedTime,
     };
 
-    // courses/:id/update
-
     // Confirm and update
-    // console.log(context.authenticatedUser, context.authenticatedUser.user, id);
-    // console.log(userId, id, course);
     let confirm = window.confirm(
       "Are you sure you want to update this course?"
     );
@@ -185,8 +178,10 @@ class UpdateCourse extends Component {
     }
   };
 
+  // return to course course detail page
   cancel = () => {
-    this.props.history.push("/");
+    const { id } = this.props.match.params;
+    this.props.history.push(`/courses/${id}`);
   };
 }
 
