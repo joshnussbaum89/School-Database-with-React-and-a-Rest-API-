@@ -1,5 +1,6 @@
 import React from "react";
 
+// If page can't be found
 const NotFound = () => {
   return (
     <div className="wrap">

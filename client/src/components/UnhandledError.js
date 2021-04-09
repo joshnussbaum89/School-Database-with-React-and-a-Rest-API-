@@ -1,6 +1,7 @@
 import React from "react";
 
-const NotFound = () => {
+// This is kind of a catch-all for any unexpected errors
+const UnhandledError = () => {
   return (
     <div className="wrap">
       <h2>Error</h2>
@@ -9,4 +10,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default UnhandledError;

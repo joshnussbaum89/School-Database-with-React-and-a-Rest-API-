@@ -88,6 +88,11 @@ class UserSignUp extends Component {
     );
   }
 
+  /**
+   * Tracks what user types in form fields
+   * @param {*} event
+   */
+
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -98,6 +103,10 @@ class UserSignUp extends Component {
       };
     });
   };
+
+  /**
+   * Submit form to sign up user
+   */
 
   submit = () => {
     const { context } = this.props;
@@ -126,12 +135,16 @@ class UserSignUp extends Component {
           );
         }
       })
-      // handle rejected promises
+      // Handle rejected promises
       .catch((error) => {
         console.log(error);
         this.props.history.push("/error");
       });
   };
+
+  /**
+   * Return to homepage
+   */
 
   cancel = () => {
     this.props.history.push("/");

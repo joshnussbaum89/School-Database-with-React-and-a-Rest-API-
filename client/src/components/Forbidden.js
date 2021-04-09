@@ -1,6 +1,7 @@
 import React from "react";
 
-const NotFound = () => {
+// If user isn't authorized to access route
+const Forbidden = () => {
   return (
     <div className="wrap">
       <h2>Forbidden</h2>
@@ -9,4 +10,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default Forbidden;

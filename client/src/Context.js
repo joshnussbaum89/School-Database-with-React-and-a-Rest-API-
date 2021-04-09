@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import Cookies from "js-cookie";
-// contains helper class
+
+// Contains helper class
 import Data from "./Data";
 
+// Context used throughout app
 const Context = React.createContext();
 
 export class Provider extends Component {
@@ -19,7 +21,8 @@ export class Provider extends Component {
   render() {
     const { authenticatedUser } = this.state;
     const { authenticatedPassword } = this.state;
-    // data to be used in Context.Provider's value prop
+
+    // Data to be used in Context.Provider's value prop
     const value = {
       authenticatedUser,
       authenticatedPassword,
@@ -35,7 +38,13 @@ export class Provider extends Component {
     );
   }
 
-  // Sign in user from UserSignIn.js
+  /**
+   * Sign in user from UserSignIn.js, sets cookies
+   * @param {*} emailAddress
+   * @param {*} password
+   * @returns authenticated user
+   */
+
   signIn = async (emailAddress, password) => {
     const user = await this.data.getUser(emailAddress, password);
     if (user !== null) {
@@ -45,6 +54,7 @@ export class Provider extends Component {
           authenticatedPassword: password,
         };
       });
+
       // Set cookie
       Cookies.set("authenticatedUser", JSON.stringify(user), { expires: 1 });
       Cookies.set("authenticatedPassword", JSON.stringify(password), {
@@ -54,7 +64,10 @@ export class Provider extends Component {
     return user;
   };
 
-  // Sign out user
+  /**
+   * Sign out user
+   */
+
   signOut = () => {
     this.setState(() => {
       return {

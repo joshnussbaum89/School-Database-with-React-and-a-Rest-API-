@@ -116,6 +116,11 @@ class UpdateCourse extends Component {
     );
   }
 
+  /**
+   * Tracks what user types in form fields
+   * @param {*} event
+   */
+
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -126,6 +131,10 @@ class UpdateCourse extends Component {
       };
     });
   };
+
+  /**
+   * Submit form to update selected course
+   */
 
   submit = () => {
     // Context variables
@@ -139,7 +148,7 @@ class UpdateCourse extends Component {
     const title = this.state.courseTitle;
     const description = this.state.courseDescription;
 
-    // course id
+    // Course id
     const { id } = this.props.match.params;
 
     // New course payload
@@ -170,7 +179,7 @@ class UpdateCourse extends Component {
             history.push(`/courses/${id}`);
           }
         })
-        // handle rejected promises
+        // Handle rejected promises
         .catch((error) => {
           console.log(error);
           history.push("/error");
@@ -178,7 +187,10 @@ class UpdateCourse extends Component {
     }
   };
 
-  // return to course course detail page
+  /**
+   * Return to course detail page
+   */
+
   cancel = () => {
     const { id } = this.props.match.params;
     this.props.history.push(`/courses/${id}`);

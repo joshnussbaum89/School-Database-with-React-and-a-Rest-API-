@@ -51,6 +51,11 @@ export class UserSignIn extends Component {
     );
   }
 
+  /**
+   * Tracks what user types in form fields
+   * @param {*} event
+   */
+
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -62,9 +67,15 @@ export class UserSignIn extends Component {
     });
   };
 
-  // Sign in user
+  /**
+   * Submit form to sign in user
+   */
+
   submit = () => {
+    // Context 
     const { context } = this.props;
+
+    // Used to return user to previous page after sign in
     const { from } = this.props.location.state || {
       from: { pathname: "/" },
     };
@@ -87,6 +98,10 @@ export class UserSignIn extends Component {
         this.props.history.push("/error");
       });
   };
+
+  /**
+   * Return to homepage
+   */
 
   cancel = () => {
     this.props.history.push("/");

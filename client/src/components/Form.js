@@ -1,5 +1,6 @@
 import React from "react";
 
+// Form used in CreateCourse, UpdateCourse, UserSignIn and UserSignUp
 const Form = (props) => {
   const { cancel, errors, submit, submitButtonText, elements } = props;
 
@@ -30,6 +31,12 @@ const Form = (props) => {
     </div>
   );
 };
+
+/**
+ * Display sequelize validation errors
+ * @param {object} Object Errors 
+ * @returns JSX displaying errors
+ */
 
 function ErrorsDisplay({ errors }) {
   let errorsDisplay = null;

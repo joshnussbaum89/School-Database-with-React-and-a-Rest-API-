@@ -99,14 +99,17 @@ class CourseDetail extends Component {
     );
   }
 
-  // Delete a course
+  /**
+   * Delete a course
+   */
+  
   handleDelete = () => {
     const { context, history } = this.props;
     const { id } = this.props.match.params;
 
-    // authenticated user
+    // Authenticated user
     const { emailAddress } = context.authenticatedUser.user;
-    // authenticated password
+    // Authenticated password
     const { authenticatedPassword } = context;
 
     // Confirm and delete
@@ -124,7 +127,7 @@ class CourseDetail extends Component {
             window.location.reload();
           }
         })
-        // handle rejected promises
+        // Handle rejected promises
         .catch((error) => {
           console.error(error);
           history.push("/error");

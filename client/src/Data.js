@@ -1,9 +1,17 @@
 import config from "./config";
 
 export default class Data {
-  // path - API endpoint
-  // method - HTTP method
-  // body - data associated with request
+
+  /**
+   * Helper function to communicate with API
+   * @param {*} path - API endpoint
+   * @param {*} method - HTTP method
+   * @param {*} body - Data associated with request
+   * @param {*} requiresAuth - Boolean
+   * @param {*} credentials - Username and password
+   * @returns fetched url with method and header options
+   */
+
   api(
     path,
     method = "GET",
@@ -23,10 +31,11 @@ export default class Data {
       options.body = JSON.stringify(body);
     }
 
-    // if auth is required (boolean)
-    // send authorization header to server with authenticated information
-    // uses base-64 encoding
+    // If auth is required (boolean)
+    // Send authorization header to server with authenticated information
+    // Uses base-64 encoding - btoa()
     if (requiresAuth) {
+
       // credentials.username for signIn and credentials.emailAddress for new course
       const username = credentials.username || credentials.emailAddress;
       const encodedCredentials = btoa(`${username}:${credentials.password}`);
@@ -36,6 +45,13 @@ export default class Data {
 
     return fetch(url, options);
   }
+
+  /**
+   * Function used in Data.js to sign in user
+   * @param {*} username
+   * @param {*} password
+   * @returns Authenticated user, null or error
+   */
 
   async getUser(username, password) {
     const response = await this.api(`/users`, "GET", null, true, {
@@ -51,6 +67,12 @@ export default class Data {
     }
   }
 
+  /**
+   * Creates new user
+   * @param {*} user
+   * @returns 201 empty array, 400 error or error
+   */
+
   async createUser(user) {
     const response = await this.api("/users", "POST", user);
     if (response.status === 201) {
@@ -63,6 +85,14 @@ export default class Data {
       throw new Error();
     }
   }
+
+  /**
+   * Creates new course
+   * @param {*} course
+   * @param {*} emailAddress
+   * @param {*} password
+   * @returns 201 empty array, 400 error or error
+   */
 
   async createCourse(course, emailAddress, password) {
     const response = await this.api("/courses", "POST", course, true, {
@@ -80,6 +110,15 @@ export default class Data {
     }
   }
 
+  /**
+   * Updates selected course
+   * @param {*} id 
+   * @param {*} course 
+   * @param {*} emailAddress 
+   * @param {*} password 
+   * @returns 204 empty array, 400 error or error
+   */
+
   async updateCourse(id, course, emailAddress, password) {
     const response = await this.api(`/courses/${id}`, "PUT", course, true, {
       emailAddress,
@@ -95,6 +134,14 @@ export default class Data {
       throw new Error();
     }
   }
+
+  /**
+   * Deletes selected course
+   * @param {*} id 
+   * @param {*} emailAddress 
+   * @param {*} password 
+   * @returns 204 empty array, 403 error or error
+   */
 
   async deleteCourse(id, emailAddress, password) {
     const response = await this.api(`/courses/${id}`, "DELETE", null, true, {

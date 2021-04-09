@@ -1,7 +1,8 @@
-// stateless
 import React from "react";
 import { Link } from "react-router-dom";
 
+// Displayed on all pages
+// Links change dynamically depending on whether or not a user is signed in
 class Header extends React.PureComponent {
   render() {
     const { context } = this.props;

@@ -2,9 +2,12 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { Consumer } from "./Context";
 
-// destructure and rename component prop in parameters
-// collect any props with ...rest
-// <Consumer> subscribes PrivateRoute to actions and data provided by Context.js
+/**
+ * Destructure and rename component prop in parameters
+ * Collect any props with ...rest
+ * <Consumer> subscribes PrivateRoute to actions and data provided by Context.js
+ */
+
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <Consumer>

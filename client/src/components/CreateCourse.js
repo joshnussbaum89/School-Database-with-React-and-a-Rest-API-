@@ -87,6 +87,11 @@ class CreateCourse extends Component {
     );
   }
 
+  /**
+   * Tracks what user types in form fields
+   * @param {*} event
+   */
+
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -97,6 +102,10 @@ class CreateCourse extends Component {
       };
     });
   };
+
+  /**
+   * Submit form to create new course
+   */
 
   submit = () => {
     // Context variables
@@ -137,7 +146,7 @@ class CreateCourse extends Component {
             history.push("/");
           }
         })
-        // handle rejected promises
+        // Handle rejected promises
         .catch((error) => {
           console.error(error);
           history.push("/error");
@@ -145,6 +154,10 @@ class CreateCourse extends Component {
     }
   };
 
+  /**
+   * Return to homepage
+   */
+  
   cancel = () => {
     this.props.history.push("/");
   };
