@@ -16,19 +16,23 @@ class CourseDetail extends Component {
   componentDidMount() {
     const courseId = this.props.history.location.pathname;
 
-    fetch(`http://localhost:5000/api/${courseId}`)
+    fetch(`http://localhost:5000/api${courseId}`)
       .then((res) => res.json())
       .then((data) => {
-        this.setState({
-          course: data,
-          firstName: data.userOwner.firstName,
-          lastName: data.userOwner.lastName,
-          time: data.estimatedTime,
-        });
-        if (data.materialsNeeded) {
+        if (Object.keys(data).length !== 0) {
           this.setState({
-            materials: data.materialsNeeded,
+            course: data,
+            firstName: data.userOwner.firstName,
+            lastName: data.userOwner.lastName,
+            time: data.estimatedTime,
           });
+          if (data.materialsNeeded) {
+            this.setState({
+              materials: data.materialsNeeded,
+            });
+          }
+        } else {
+          this.props.history.push("/error");
         }
       })
       .catch((error) => {
@@ -102,7 +106,7 @@ class CourseDetail extends Component {
   /**
    * Delete a course
    */
-  
+
   handleDelete = () => {
     const { context, history } = this.props;
     const { id } = this.props.match.params;

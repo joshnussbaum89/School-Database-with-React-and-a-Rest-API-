@@ -157,7 +157,7 @@ class CreateCourse extends Component {
   /**
    * Return to homepage
    */
-  
+
   cancel = () => {
     this.props.history.push("/");
   };

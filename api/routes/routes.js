@@ -97,6 +97,7 @@ router.get(
     } else {
       res.json({ message: "No courses to display" });
     }
+    // return res.status(500).json({});
   })
 );
 
@@ -122,6 +123,7 @@ router.get(
     });
 
     res.json(course);
+    // return res.status(500).json({});
   })
 );
 
@@ -134,7 +136,6 @@ router.post(
   "/courses",
   authenticateUser,
   asyncHandler(async (req, res) => {
-    // console.log(req.body)
     try {
       const course = await Course.create(req.body);
       const courseIndex = course.dataValues.id;
