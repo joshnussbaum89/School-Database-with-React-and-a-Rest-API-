@@ -6,7 +6,7 @@ const { asyncHandler } = require("../middleware/async-handler");
 const { authenticateUser } = require("../middleware/auth-user");
 const { User, Course } = require("../models");
 
-// Construct a router instance.
+// Router instance
 const router = express.Router();
 
 /**
@@ -51,7 +51,7 @@ router.post(
         user.password = bcrypt.hashSync(password, 10);
       }
 
-      // create user
+      // Create user
       await User.create(req.body);
       res.status(201).location("/").end();
     } catch (error) {
@@ -97,7 +97,6 @@ router.get(
     } else {
       res.json({ message: "No courses to display" });
     }
-    // return res.status(500).json({});
   })
 );
 
@@ -123,7 +122,6 @@ router.get(
     });
 
     res.json(course);
-    // return res.status(500).json({});
   })
 );
 
