@@ -56,9 +56,17 @@ export class Provider extends Component {
       });
 
       // Set cookie
-      Cookies.set("authenticatedUser", JSON.stringify(user), { expires: 1 });
+      Cookies.set("authenticatedUser", JSON.stringify(user), {
+        expires: 1,
+        // REMOVES THIS WARNING:
+        // "Some cookies are misusing the “SameSite“ attribute, so it won't work as expected js-cookie"
+        sameSite: "strict",
+      });
       Cookies.set("authenticatedPassword", JSON.stringify(password), {
         expires: 1,
+        // REMOVES THIS WARNING:
+        // "Some cookies are misusing the “SameSite“ attribute, so it won't work as expected js-cookie"
+        sameSite: "strict",
       });
     }
     return user;

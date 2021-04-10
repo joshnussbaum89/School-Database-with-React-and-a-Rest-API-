@@ -128,7 +128,6 @@ class CourseDetail extends Component {
             this.setState({ errors });
           } else {
             history.push("/");
-            window.location.reload();
           }
         })
         // Handle rejected promises
