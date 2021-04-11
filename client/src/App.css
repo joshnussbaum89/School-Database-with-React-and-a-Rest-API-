@@ -65,11 +65,16 @@ header nav a:hover {
   margin-left: 0.5rem;
 }
 .course--module {
+  /* background: black; */
   background: #7c689b;
   border-radius: 0.5rem;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
+  transition: 0.3s;
   display: block;
+}
+.course--module:not(.course--add--module):hover {
+  background: #63537d;
 }
 .course--label {
   color: #fff;
@@ -87,6 +92,9 @@ header nav a:hover {
   color: #57496e;
   font-weight: 300;
   font-size: 1.25rem;
+}
+.course--add--module:hover {
+  background: #eceaef;
 }
 .course--add--title .add {
   width: 20px;
