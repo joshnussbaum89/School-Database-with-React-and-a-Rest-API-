@@ -10,7 +10,7 @@ class Courses extends React.Component {
     fetch("http://localhost:5000/api/courses")
       .then((res) => res.json())
       .then((courses) => {
-        if (Object.keys(courses).length !== 0) {
+        if (courses && Object.keys(courses).length !== 0) {
           this.setState({ courses });
         } else {
           this.props.history.push("/error");

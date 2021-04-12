@@ -14,12 +14,12 @@ class CourseDetail extends Component {
   };
 
   componentDidMount() {
-    const courseId = this.props.history.location.pathname;
+    const { id } = this.props.match.params;
 
-    fetch(`http://localhost:5000/api${courseId}`)
+    fetch(`http://localhost:5000/api/courses/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        if (Object.keys(data).length !== 0) {
+        if (data) {
           this.setState({
             course: data,
             firstName: data.userOwner.firstName,
@@ -32,11 +32,11 @@ class CourseDetail extends Component {
             });
           }
         } else {
-          this.props.history.push("/error");
+          this.props.history.push("/notfound");
         }
       })
       .catch((error) => {
-        this.props.history.push("/notfound");
+        this.props.history.push("/error");
         console.log("Course not found: ", error);
       });
   }
