@@ -1,0 +1,20 @@
+{
+  "name": "full_stack_app_with_react_and_a_rest_api-v1",
+  "version": "1.0.0",
+  "description": "Final project for Team Treehouse's Full Stack JavaScript TechDegree ✨",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshnussbaum89/School-Database-with-React-and-a-Rest-API-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshnussbaum89/School-Database-with-React-and-a-Rest-API-/issues"
+  },
+  "homepage": "https://github.com/joshnussbaum89/School-Database-with-React-and-a-Rest-API-#readme"
+}
